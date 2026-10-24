@@ -1,0 +1,18 @@
+
+services:
+  api-incidentes:
+    build: .
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: "file:/app/data/dev.db"
+      PORT: "3000"
+    volumes:
+      - incidentes_datos:/app/data
+      - incidentes_evidencias:/app/storage/evidencias
+
+volumes:
+  incidentes_datos:
+  incidentes_evidencias:

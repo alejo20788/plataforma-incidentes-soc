@@ -1,0 +1,12 @@
+const express=require('express');
+const router=express.Router();
+const {verificarToken,verificarRol}=require('../middleware/auth');
+const {listar,crear,actualizar,eliminar,descargarEvidencia}=require('../controllers/incidentes.controller');
+const {uploadEvidence}=require('../middleware/evidencias');
+router.use(verificarToken);
+router.get('/',listar);
+router.post('/',verificarRol(['ANALISTA','ADMINISTRADOR']),uploadEvidence,crear);
+router.put('/:id',verificarRol(['ANALISTA','ADMINISTRADOR']),uploadEvidence,actualizar);
+router.get('/:id/evidencia',descargarEvidencia);
+router.delete('/:id',verificarRol(['ADMINISTRADOR']),eliminar);
+module.exports=router;
